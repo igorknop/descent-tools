@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Descent Dungeon Crawl</title>
+        <title>Knop's Descent Dungeon Crawl Shuffler</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+        <style>
+            html {
+                width: 300px;
+                margin: auto;
+                font-size: 0.8em;
+            }
+            p{
+                text-align: justify;
+            }
+            #currentCard{
+                min-height: 300px;
+            }
+            button{
+                width: 50%;
+            }
+        </style>
         <script>
             DescentDC = function() {
                 this.heroQuestsDiscard = [];
@@ -24,7 +40,7 @@
                         event1: "plains",
                         event2: "water",
                         text: "Place Baron Zachareth. Place one blue objective token in the middle of each room, these are mystic wards. As an action, Baron Zachareth or a master monster may attack a mystic ward attempting to destroy it. Each mystic ward has 10 [health] and rolls a grey defense die. Once destroyed, place the token on this card. Once per turn, a hero adjacent to a mystic ward may test [knowledge]. If the check passes recover all [health] for that mystic ward. The Overlord wins if all mystic wards have been placed on this card",
-                        lieutenent: "Baron Zachareth",
+                        lieutenant: "Baron Zachareth",
                         room: "1"
                     }
                 ];
@@ -148,9 +164,18 @@
                     this.passage2 = this.drawOverlordCard();
                     this.passage3 = this.drawOverlordCard();
                     this.shuffleAllDecks();
-                    this.groupA = this.drawOverlordCard();
-                    this.groupB = this.drawOverlordCard();
-                    this.groupC = this.drawOverlordCard();
+                    do {
+                        this.shuffleOverlordDeckIfNeeded();
+                        this.groupA = this.drawOverlordCard();
+                    } while (this.groupA.group !== "A");
+                    do {
+                        this.shuffleOverlordDeckIfNeeded();
+                        this.groupB = this.drawOverlordCard();
+                    } while (this.groupB.group !== "B");
+                    do {
+                        this.shuffleOverlordDeckIfNeeded();
+                        this.groupC = this.drawOverlordCard();
+                    } while (this.groupC.group !== "C");
                     this.shuffleAllDecks();
                     this.currentCard = -1;
                 };
@@ -167,11 +192,11 @@
                     document.body.appendChild(overlordQuest);
 
                     var rooms = document.createElement("section");
-                    rooms.innerHTML = "<h1>Rooms</h1> <p>[<strong>" + this.room1.room + "</strong>] &rarr; <strong>" + this.passage1.passage + "</strong> &rarr; [<strong>" + this.room2.room + "</strong>] &rarr; <strong>" + this.passage2.passage + "</strong> &rarr; [<strong>" + this.room3.room + "</strong>] &rarr; <strong>" + this.passage3.passage + "</strong> &rarr; [<strong>" + this.overlordQuest.room + "</strong>].</p>";
+                    rooms.innerHTML = "<h1>Rooms</h1> <ol><li><strong>" + this.room1.room + "</strong></li> <li><strong>" + this.passage1.passage + "</strong></li> <li><strong>" + this.room2.room + "</strong></li><li><strong>" + this.passage2.passage + "</strong></li><li><strong>" + this.room3.room + "</strong></li><li><strong>" + this.passage3.passage + "</strong></li><li><strong>" + this.overlordQuest.room + "</strong></li></ol>";
                     document.body.appendChild(rooms);
 
                     var monsters = document.createElement("section");
-                    monsters.innerHTML = "<h1>Monsters</h1> <p>Group A: <strong>" + this.groupA.monster + "</strong> Group B: <strong>" + this.groupB.monster + "</strong> Group C: <strong>" + this.groupC.monster + "</strong> Lieutenent: <strong>" + this.overlordQuest.lieutenent + "</strong></p>";
+                    monsters.innerHTML = "<h1>Monsters</h1> <ol><li>Group A: <strong>" + this.groupA.monster + "</strong></li> <li>Group B: <strong>" + this.groupB.monster + "</strong></li> <li>Group C: <strong>" + this.groupC.monster + "</strong></li> <li>Lieutenant: <strong>" + this.overlordQuest.lieutenant + "</strong></li></ol>";
                     document.body.appendChild(monsters);
 
                     this.cCard = document.getElementById("currentCard");
@@ -180,29 +205,21 @@
                         return function() {
 
                             that.currentCard++;
-                            if (that.currentCard < that.overlordCards.length - 1
-                                    ) {
-                                that.cNext.innerHTML = "Draw an Overlord Card";
-                            } else if (that.currentCard === that.overlordCards.length - 1) {
-                                that.cNext.innerHTML = "Shuffle deck and Draw an Overlord Card";
-                            } else {
+                            if (that.currentCard >= that.overlordCards.length) {                                
                                 that.shuffleAllDecks();
                                 that.currentCard = 0;
                             }
-
-                            console.log("next" + that.currentCard);
-                            that.cCard.innerHTML = that.drawCard();
+                            that.cCard.innerHTML = that.drawCard(that);
 
                         };
                     }(this));
                     document.getElementById("prev").addEventListener("click", function(that) {
                         return function() {
-                            console.log("prev" + that.currentCard);
                             that.currentCard -= 1;
                             if (that.currentCard <= 0) {
                                 that.currentCard = 0;
                             }
-                            that.cCard.innerHTML = that.drawCard();
+                            that.cCard.innerHTML = that.drawCard(that);
 
                         };
                     }(this));
@@ -210,15 +227,30 @@
                 };
                 this.drawCard = function(that) {
                     return function() {
-                        return   "<h1>Current Card (" + (that.currentCard + 1) + "/" + that.overlordCards.length + "): " + that.overlordCards[that.currentCard].title + "</h1> <p>" + that.overlordCards[that.currentCard].text + "</p> <p>Activate all monsters in Group <strong>" + that.overlordCards[that.currentCard].group + "</strong>.</p> <p>Activate the Lieutenant <strong>" + that.overlordQuest.lieutenant + "</strong>.</p>";
+                        var group = that.overlordCards[that.currentCard].group;
+                        var monsters = that.groupC.monster;
+                        if (group === "A") {
+                            monsters = that.groupA.monster;
+                        } else if (group === "B") {
+                            monsters = that.groupB.monster;
+                        }
+                        return   "<h1>Current Card (" + (that.currentCard + 1) + "/" + that.overlordCards.length + "): " + that.overlordCards[that.currentCard].title + "</h1> <p>" + that.overlordCards[that.currentCard].text + "</p> <p>Activate all <strong>" + monsters + "</strong>  monsters in Group <strong>" + group + "</strong>.</p> <p>Activate the Lieutenant <strong>" + that.overlordQuest.lieutenant + "</strong>.</p>";
                     };
                 }(this);
+                this.shuffleOverlordDeckIfNeeded = function() {
+                    if (this.overlordCards.length === 0) {
+                        this.overlordCards = this.overlordCards.concat(this.overlordCardsDiscard);
+                        this.overlordCardsDiscard = [];
+                        this.shuffle(this.overlordCards);
+                    }
+                }
             };
         </script>
     </head>
     <body>
-        <h1>Descent Dungeon Crawl</h1>
-        <div><button id="prev">Previous Overlord Card</button><button id="next">Draw a Overlord Card</button></div>
+        <h1>Knop's Descent Dungeon Crawl Shuffler</h1>
+        <p>Based on previously work of nerdook and cesspit.</p>
+        <div><button id="prev">&larr;</button><button id="next">&rarr;</button></div>
         <div id="currentCard"></div>
         <script>
             var game = new DescentDC();
