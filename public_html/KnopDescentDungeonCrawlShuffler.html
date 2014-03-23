@@ -27,13 +27,80 @@
                     {
                         title: "LIGHT THE BEACONS",
                         expansion: "",
-                        event1: "Mountain",
-                        event2: "Forest",
+                        event1: "mountain",
+                        event2: "forest",
                         text: "Place a red objective token face down in the middle of each room. These are the Warning Beacons. Once per turn, a hero adjacent to a beacon may test [knowledge] or [awereness]. If he passes, he may turn the token face up. If he fails he may spend an action to turn if face up instead. A monster figure adjacent to a beacon may spend an action to turn it face down. The heroes win when all beacons have been lit."
+                    },
+                    {
+                        title: "RESCUE THE TOWNSFOLK",
+                        expansion: "",
+                        event1: "plains",
+                        event2: "water",
+                        text: "Place a villager token in the middle of each room. At the end of each hero turn, a villager within 3 spaces of a hero may move up to 3 spaces. Monster figures may move through villagers, but may not end their turn on a villager space. A villager on the exit tile is rescued and the token is removed. <br/> The heroes win when all the villagers have been rescued"
+                    },
+                    {
+                        title: "MONSTER HUNTERS",
+                        expansion: "",
+                        event1: "montain",
+                        event2: "plains",
+                        text: "All figures in Monster Group C gain an additional 2[health] per hero (3[health] for master figures). If an Overlord card would place reinforcements for Monster Group C, ignore that part of the card. Instead, each surviving figure from that group recovers all [health]. <br/> The heroes win when all figures from Monster Group C have been defeated."},
+                    
+                    {
+                        title: "GLYPHS OF POWER",
+                        expansion: "",
+                        event1: "water",
+                        event2: "river",
+                        text: "Place a red objective token face down in the middle of each room. These are the Glyphs of Power. Once per turn, a hero may test [knoledge]. If he passes, he may turn an adjacent token face up. If he fails, he may spend an action to turn it face up instead. <br/> If a hero is defeated, the nearest token is turned face down. The heroes win if all hero figures are on the Exit tile and all glyphs are activated."
+                    },
+                    {
+                        title: "PURIFYING LIGHT",
+                        expansion: "",
+                        event1: "river",
+                        event2: "plains",
+                        text: "Place a white objective token on the exit. This is the ray of sunlight. Once per turn, a hero may spend 1 action and suffer 1 [fatigue] to move the white objective token up to 3 spaces. If any hero figure ends their turn on the ray of sunlight, place a fatigue token on this card. if there are no hero figures on the ray of sunlight, remove all fatigue tokens from this card. <br/>The heroes win when there are 3 fatigue tokens on this card"
+                    },
+                    {
+                        title: "THE ARENA",
+                        expansion: "",
+                        event1: "forest",
+                        event2: "plains",
+                        text: "Place one red objective token in the middle of each room. This is the arena marker. When a hero moves adjacent to an arena marker he may choose to begin the challenge. Once the challenge has begun, take one challenge marker per hero, and place them face up adjacent to the arena marker. Heroes adjacent do an attribute tests can attempt it once per turn. If they fail they can spend an action to resolve it instead. Once all challenge monsters have been defeated and all attribute tests passed, place the arena marker on this card. The heroes win when all arena markers have been placed on this card."
+                    },
+                    {
+                        title: "TREASURE HUNT",
+                        expansion: "Lair of Wyrm / Trollfens",
+                        event1: "water",
+                        event2: "mountain",
+                        text: "Place a red objective token in the far corner of the last room. This is the secret passage to the treasure room. Remove both Secret Passage cards from the search deck, then set up the map as normal. When a hero performs a search action on the token in the last room resolve a Secret Passage card. The heroes win if all hero figures are on the Exit tile and all Search tokens have been resolved. "
+                    },
+                    {
+                        title: "CLEANSING THE TAINT",
+                        expansion: "Trollfens",
+                        event1: "water",
+                        event2: "mountain",
+                        text: "Place three infection tokens per hero on the board, distributed as evenly as possible across all dungeon rooms. Once per turn, a hero may test [willpower] or [knowledge]. If he passes, he may remove an adjacent infection token from the board. If he fails, he may spend an action to remove it instead. If a hero is defeated, add an infection token in the square where they fell. The heroes win when all infection tokens have been removed from the map."
                     },
                 ];
                 this.overlordQuestsDiscard = [];
                 this.overlordQuests = [
+                    {
+                        title: "MENDING TALISMAN",
+                        expansion: "Trollfens",
+                        event1: "river",
+                        event2: "forest",
+                        text: "Place Raythen and Serena. Place one blue objective marker face down in the middle of each room. These are the waypoint tokens. When Raythen or Serena move adjacent to a waypoint token, flip it face up. While adjacent to an active waypoint token Raythen or Sereran may treat any other active waypoint as adjacent while moving. If Raythen or Serena are defeated, flip the furthest face up token face down. The defeated Leuitenant will then spend their next activation recovering all [health] and then move their figure to the last face up waypoint token. If all waypoints are face down, place the figure on the Exit tile. The Overlord wins when Raythen and Serena are both on the Entrance tile.",
+                        lieutenant: "Raythen and Serena",
+                        room: "39"
+                    },
+                    {
+                        title: "TRUESHOT",
+                        expansion: "trollfens",
+                        event1: "river",
+                        event2: "forest",
+                        text: "Place Ariad. When activated, Ariad attacks any hero within 4 spaces, then rolls a red power die. On a [surge], place a fatigue token on this card. If there are 10 tokens on this card, replace Ariad with Queen Ariad. If Ariad is defeated, remove all fatigue tokens on this card and she recovers all [health]. <br/> When activated, Queen Ariad attacks a hero then moves towards the Exit. The Overlord wins if Queen Ariad enters the Exit tile",
+                        lieutenant: "Ariad",
+                        room: "38"
+                    },
                     {
                         title: "THE SHADOW RUNE",
                         expansion: "",
@@ -42,7 +109,70 @@
                         text: "Place Baron Zachareth. Place one blue objective token in the middle of each room, these are mystic wards. As an action, Baron Zachareth or a master monster may attack a mystic ward attempting to destroy it. Each mystic ward has 10 [health] and rolls a grey defense die. Once destroyed, place the token on this card. Once per turn, a hero adjacent to a mystic ward may test [knowledge]. If the check passes recover all [health] for that mystic ward. The Overlord wins if all mystic wards have been placed on this card",
                         lieutenant: "Baron Zachareth",
                         room: "1"
-                    }
+                    },
+                    {
+                        title: "AURIM MAIL",
+                        expansion: "Lair of Wyrm",
+                        event1: "plains",
+                        event2: "mountain",
+                        text: "Place Belthir. Place one blue objective token on each hero sheet, these represent dragon eggs. When activated, Belthir moves towards the closest hero with an egg token and attacks them. When making this attack, Belthir gains [surge]: take an egg token from the targeted hero and place it on this card.If Belthir is defeated, adjacent heroes may take one egg token off this card and place it on their hero sheet. The Overlord wins if all egg tokens are placed on this card. ",
+                        lieutenant: "Belthir",
+                        room: "2"
+                    },
+                    {
+                        title: "SHIELD OF THE DARK GOD",
+                        expansion: "Trollfens",
+                        event1: "water",
+                        event2: "river",
+                        text: "Place Bol'Goreth. When activated, Bol'Goreth attacks the closest hero that he hasn't already defeated, and then rolls a green power die. On a [surge], place a fatigue token on this card. When Bol'Goreth attacks a hero he adds +1 [health] for each fatigue token on this card. If Bol'Goreth defeats a hero, place one of their hero tokens on this card. If Bol'Goreth is defeated, remove all [fatigue] from this card and he recovers all [health]. <br/> The Overlord wins if there is one hero token from each hero on this card.",
+                        lieutenant: "Bol'Goreth",
+                        room: "48"
+                    },
+                    {
+                        title: "FORTUNA'S DICE",
+                        expansion: "",
+                        event1: "river",
+                        event2: "water",
+                        text: "Place Lady Eliza Farrow.<br/>When activated, Lady Eliza attacks a hero within 4 spaces with the least Health, then moves 3 spaces towards the entrance. If Lady Eliza is defeated, she rolls two red power dice and recovers the number of [health] rolled, then her figure is placed on the exit. <br/> The Overlord wins if Lady Eliza enters the Entrance tile.",
+                        lieutenant: "Lady Eliza Farrow",
+                        room: "4"
+                    },
+                    {
+                        title: "STAFF OF LIGHT",
+                        expansion: "Labyrinth of Ruin",
+                        event1: "plains",
+                        event2: "forrest",
+                        text: "Place Lord Merick Farrow.<br/> When activated, Lord Merick Farrow tests [knowledge]. If he passes, add one [fatigue] token to this card. If he fails, he attacks the nearest hero, ignoring LOS and range. If Lord Merick Farrow is defeated, remove all [fatigue] tokens on this card, he recovers all [health], and his figure is moved to the middle of any adjacent room tile.<br/> The Overlord wins if there are 10 fatigue tokens on this card.",
+                        lieutenant: "Lady Eliza Farrow",
+                        room: "37"
+                    },
+                    {
+                        title: "DAWNBLADE",
+                        expansion: "Labyrinth of Ruin",
+                        event1: "mountain",
+                        event2: "water",
+                        text: "Place Sir Alric Farrow. If Sir Alric Farrow is defeated, he spends the next activation recovering all [health] and moves his figure to the Exit tile or the closest empty space. Whenever a hero is defeated, place a fatigue token on this card. The Overlord wins if there are 6 fatigue tokens on this card.",
+                        lieutenant: "Sir Alric Farrow",
+                        room: "36"
+                    },
+                    {
+                        title: "GAUNTLETS OF POWER",
+                        expansion: "Labyrinth of Ruin",
+                        event1: "forest",
+                        event2: "water",
+                        text: "Place Splig.<br/> Randomly place 3 blue and 1 white objective tokens in the corners of the final room face down. When activated, Splig moves towards the closest objective token. If he is already adjacent to a token, he flips it to reveal the objective. If it is the white objective he adds an additional red power die to all his attacks. If Splig has the white objective token he moves towards the nearest hero and attacks if possible. The Overlord wins if Splig defeats a hero.",
+                        lieutenant: "Splig",
+                        room: "13"
+                    },
+                    {
+                        title: "VALYNDRA'S BANE",
+                        expansion: "Lair of Whyrm",
+                        event1: "mountain",
+                        event2: "river",
+                        text: "Place Valyndra.<br/> When activated, Valyndra attacks an adjacent hero. Otherwise, she rolls test [strenght]. On a success, place an objective token face down adjacent to the current hero. This rockfall blocks LOS and movement. If all spaces are occupied, the hero is defeated and the token is placed on his space. Once per turn, a hero may test [strenght] to remove one adjacent rockfall. The Overlord wins if there are 10 rockfalls on the map.",
+                        lieutenant: "Valyndra",
+                        room: "31"
+                    },
                 ];
                 this.overlordCardsDiscard = [];
                 this.overlordCards = [
@@ -84,7 +214,7 @@
                         title: "WORD OF PAIN",
                         text: "Each hero tests [willpower]. Each hero who fails suffers 1[health]. Draw another Overlord card.",
                         monster: "CAVE SPIDER",
-                        monsterExpansion: "Labyrinth of Ruin",
+                        monsterExpansion: "",
                         group: "A",
                         room: "9",
                         roomExpansion: "",
@@ -111,6 +241,138 @@
                         room: "3",
                         roomExpansion: "",
                         passage: "25",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "DARK BALM",
+                        text: "Roll 1 red power die, all monster figures regain [health] equal to the [health] rolled.",
+                        monster: "FIRE IMPS",
+                        monsterExpansion: "Lair of Wyrm",
+                        group: "A",
+                        room: "35",
+                        roomExpansion: "Lair of Wyrm",
+                        passage: "43",
+                        passageExpansion: "Lair of Wyrm"
+                    },
+                    {
+                        title: "RISE AGAIN",
+                        text: "During the next hero's turn, the first time any monster figure is defeated, that monster figure instead comes back to life. Roll 2 red power dice and regain [health] equal to the [health] rolled. If there are no figures in Group B, respawn two figures at least 3 spaces from the nearest hero and take their actions normally",
+                        monster: "FLESH MOULDER",
+                        monsterExpansion: "",
+                        group: "B",
+                        room: "11",
+                        roomExpansion: "",
+                        passage: "18",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "REINFORCEMENTS",
+                        text: "Respawn one monster figure 3 spaces from the nearest hero ignoring group limits.<br/> Roll one grey defense die to determine which monster group to use for the reinforcement: <br/>0[defense]: No respawn <br/>1[defense]: Group A <br/>2[defense]: Group B <br/>3[defense]: Group C <br/>",
+                        monster: "GOBLIN ARCHER",
+                        monsterExpansion: "",
+                        group: "A",
+                        room: "21",
+                        roomExpansion: "",
+                        passage: "29",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "DARK MIGHT",
+                        text: "One figures in Group A gains an additional [surge] when it attacks a hero figure.<br/>If there are no figures in Group A, respawn two figures at the Exit",
+                        monster: "GOBLIN WITCHER",
+                        monsterExpansion: "Labyrinth of Ruin",
+                        group: "A",
+                        room: "7",
+                        roomExpansion: "",
+                        passage: "23",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "FRENZY",
+                        text: "One figure in Group A may make an extra attack this turn as a free action.<br/>If there are no figures in Group A, draw another Overlord card.",
+                        monster: "HARPY",
+                        monsterExpansion: "Trollfens",
+                        group: "A",
+                        room: "49",
+                        roomExpansion: "Trollfens",
+                        passage: "45",
+                        passageExpansion: "Trollfens"
+                    },
+                    {
+                        title: " DARK MIGHT",
+                        text: "One figure in Group C gains an additional [surge] when it attacks a hero figure.<br/>If there are no figures in Group C, respawn one figure at the Exit.",
+                        monster: "HYBRID SENTINEL",
+                        monsterExpansion: "Lair of Wyrm",
+                        group: "C",
+                        room: "32",
+                        roomExpansion: "Lair of Wyrm",
+                        passage: "33",
+                        passageExpansion: "Lair of Wyrm"
+                    },
+                    {
+                        title: "BLOOD BARGAIN",
+                        text: "The current hero gains this card. While it is in his play area, every time he deals any number of [health] to a monster, he must suffer 1[health] in return. <br/>Remove this card from the hero when he takes a rest action or is knocked out.",
+                        monster: "MERRIOD",
+                        monsterExpansion: "",
+                        group: "C",
+                        room: "12",
+                        roomExpansion: "",
+                        passage: "24",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "REINFORCEMENTS",
+                        text: "Respawn one monster figure 3 spaces from the nearest hero ignoring group limits.<br/>Roll one grey defense die to determine which monster group to use for the reinforcement:<br/>0[defense]: No respawn<br/>1[defense]: Group B<br/>2[defense]: Group C<br/>3[defense]: Group A",
+                        monster: "PLAGUE WORM",
+                        monsterExpansion: "Trollfens",
+                        group: "B",
+                        room: "44",
+                        roomExpansion: "Trollfens",
+                        passage: "46",
+                        passageExpansion: "Trollfens"
+                    },
+                    {
+                        title: "FRENZY",
+                        text: "One figure in Group C may make an extra attack this turn as a free action.<br/>If there are no figures in Group C, draw another Overlord card.",
+                        monster: "SHADOW DRAGON",
+                        monsterExpansion: "",
+                        group: "C",
+                        room: "5",
+                        roomExpansion: "",
+                        passage: "20",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "SWARM",
+                        text: "When monsters make an attack this turn they add +1[health] for each other monster figure adjacent to the targeted hero.",
+                        monster: "VOLUCRIX REAVER",
+                        monsterExpansion: "Labyrinth of Ruin",
+                        group: "A",
+                        room: "14",
+                        roomExpansion: "",
+                        passage: "20",
+                        passageExpansion: "Labyrinth of Ruin"
+                    },
+                    {
+                        title: "DARK FORTITUDE",
+                        text: "Until the end of the next hero's turn, all monsters gain +2[defense] to their defence rolls. If this was the first card Overlord drawn, draw another Overlord card",
+                        monster: "ZOMBIE",
+                        monsterExpansion: "",
+                        group: "A",
+                        room: "19",
+                        roomExpansion: "",
+                        passage: "17",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "BREATH!",
+                        text: "Nothing Happens",
+                        monster: "",
+                        monsterExpansion: "",
+                        group: "",
+                        room: "",
+                        roomExpansion: "",
+                        passage: "",
                         passageExpansion: ""
                     },
                 ];
@@ -192,7 +454,7 @@
                     document.body.appendChild(overlordQuest);
 
                     var rooms = document.createElement("section");
-                    rooms.innerHTML = "<h1>Rooms</h1> <ol><li><strong>" + this.room1.room + "</strong></li> <li><strong>" + this.passage1.passage + "</strong></li> <li><strong>" + this.room2.room + "</strong></li><li><strong>" + this.passage2.passage + "</strong></li><li><strong>" + this.room3.room + "</strong></li><li><strong>" + this.passage3.passage + "</strong></li><li><strong>" + this.overlordQuest.room + "</strong></li></ol>";
+                    rooms.innerHTML = "<h1>Rooms and Passages</h1> <ol><li><strong>" + this.room1.room + "</strong></li> <li><strong>" + this.passage1.passage + "</strong></li> <li><strong>" + this.room2.room + "</strong></li><li><strong>" + this.passage2.passage + "</strong></li><li><strong>" + this.room3.room + "</strong></li><li><strong>" + this.passage3.passage + "</strong></li><li><strong>" + this.overlordQuest.room + "</strong> (Lieutenant)</li></ol>";
                     document.body.appendChild(rooms);
 
                     var monsters = document.createElement("section");
