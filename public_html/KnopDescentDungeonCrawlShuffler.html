@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Descent Dungeon Crawl</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script>
+            DescentDC = function() {
+                this.heroQuestsDiscard = [];
+                this.heroQuests = [
+                    {
+                        title: "LIGHT THE BEACONS",
+                        expansion: "",
+                        event1: "Mountain",
+                        event2: "Forest",
+                        text: "Place a red objective token face down in the middle of each room. These are the Warning Beacons. Once per turn, a hero adjacent to a beacon may test [knowledge] or [awereness]. If he passes, he may turn the token face up. If he fails he may spend an action to turn if face up instead. A monster figure adjacent to a beacon may spend an action to turn it face down. The heroes win when all beacons have been lit."
+                    },
+                ];
+                this.overlordQuestsDiscard = [];
+                this.overlordQuests = [
+                    {
+                        title: "THE SHADOW RUNE",
+                        expansion: "",
+                        event1: "plains",
+                        event2: "water",
+                        text: "Place Baron Zachareth. Place one blue objective token in the middle of each room, these are mystic wards. As an action, Baron Zachareth or a master monster may attack a mystic ward attempting to destroy it. Each mystic ward has 10 [health] and rolls a grey defense die. Once destroyed, place the token on this card. Once per turn, a hero adjacent to a mystic ward may test [knowledge]. If the check passes recover all [health] for that mystic ward. The Overlord wins if all mystic wards have been placed on this card",
+                        lieutenent: "Baron Zachareth",
+                        room: "1"
+                    }
+                ];
+                this.overlordCardsDiscard = [];
+                this.overlordCards = [
+                    {
+                        title: "WEB TRAP",
+                        text: "The current hero tests [awereness]. If the hero fails, that hero is Immobilized. If this was the first Overlord card drawn, draw another Overlord card.",
+                        monster: "ARACHYURA",
+                        monsterExpansion: "Labyrinth of Ruin",
+                        group: "C",
+                        room: "40",
+                        roomExpansion: "Labyrinth of Ruin",
+                        passage: "42",
+                        passageExpansion: "Labyrinth of Ruin"
+                    },
+                    {
+                        title: "DARK MIGHT",
+                        expansion: "",
+                        text: "One figure in Group B gains an additional [surge] when it attacks a hero figure. If there are no figures in Group B, respawn one figure at the Exit.",
+                        monster: "BARGHEST",
+                        monsterExpansion: "",
+                        group: "B",
+                        room: "6",
+                        roomExpansion: "",
+                        passage: "26",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "FRENZY",
+                        text: "One figure from Group B may make an extra attack this turn as a free action. If there are no figures in Group B, draw another Overlord card. ",
+                        monster: "CARRION DRAKE",
+                        monsterExpansion: "Labyrinth of Ruin",
+                        group: "B",
+                        room: "8",
+                        roomExpansion: "",
+                        passage: "28",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "WORD OF PAIN",
+                        text: "Each hero tests [willpower]. Each hero who fails suffers 1[health]. Draw another Overlord card.",
+                        monster: "CAVE SPIDER",
+                        monsterExpansion: "Labyrinth of Ruin",
+                        group: "A",
+                        room: "9",
+                        roomExpansion: "",
+                        passage: "22",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "EXPERT BLOW",
+                        text: "One monster adjacent to a hero makes an attack against that hero. The attack gains the benefits as listed below: [surge]: +4[health].",
+                        monster: "ELEMENTAL",
+                        monsterExpansion: "",
+                        group: "B",
+                        room: "10",
+                        roomExpansion: "",
+                        passage: "15",
+                        passageExpansion: ""
+                    },
+                    {
+                        title: "REINFORCEMENTS",
+                        text: "Respawn one monster figure 3 spaces from the nearest hero ignoring group limits. Roll one grey defense die to determine which monster group to use for the reinforcement: 0 [defense]: No respawn 1 [defense]: Group C 2 [defense]: Group A 3 [defense]: Group B ",
+                        monster: "ETTIN",
+                        monsterExpansion: "",
+                        group: "C",
+                        room: "3",
+                        roomExpansion: "",
+                        passage: "25",
+                        passageExpansion: ""
+                    },
+                ];
+                this.shuffleAllDecks = function() {
+                    this.heroQuests = this.heroQuests.concat(this.heroQuestsDiscard);
+                    this.heroQuestsDiscard = [];
+                    this.overlordQuests = this.overlordQuests.concat(this.overlordQuestsDiscard);
+                    this.overlordQuestsDiscard = [];
+                    this.overlordCards = this.overlordCards.concat(this.overlordCardsDiscard);
+                    this.overlordCardsDiscard = [];
+                    this.shuffle(this.heroQuests);
+                    this.shuffle(this.overlordQuests);
+                    this.shuffle(this.overlordCards);
+                    this.currentCard = -1;
+                };
+                this.drawHeroQuestCard = function() {
+                    var card = this.heroQuests.pop();
+                    this.heroQuestsDiscard.push(card);
+                    return card;
+                };
+                this.drawOverlordQuestCard = function() {
+                    var card = this.overlordQuests.pop();
+                    this.overlordQuestsDiscard.push(card);
+                    return card;
+                };
+                this.drawOverlordCard = function() {
+                    var card = this.overlordCards.pop();
+                    this.overlordCardsDiscard.push(card);
+                    return card;
+                };
+                this.shuffle = function shuffle(array) {
+                    var counter = array.length, temp, index;
+                    while (counter > 0) {
+                        index = Math.floor(Math.random() * counter);
+                        counter--;
+                        temp = array[counter];
+                        array[counter] = array[index];
+                        array[index] = temp;
+                    }
+                    return array;
+                };
+                this.setupGame = function() {
+                    this.shuffleAllDecks();
+                    this.heroQuest = this.drawHeroQuestCard();
+                    this.overlordQuest = this.drawOverlordQuestCard();
+                    this.room1 = this.drawOverlordCard();
+                    this.room2 = this.drawOverlordCard();
+                    this.room3 = this.drawOverlordCard();
+                    this.shuffleAllDecks();
+                    this.passage1 = this.drawOverlordCard();
+                    this.passage2 = this.drawOverlordCard();
+                    this.passage3 = this.drawOverlordCard();
+                    this.shuffleAllDecks();
+                    this.groupA = this.drawOverlordCard();
+                    this.groupB = this.drawOverlordCard();
+                    this.groupC = this.drawOverlordCard();
+                    this.shuffleAllDecks();
+                    this.currentCard = -1;
+                };
+
+                this.drawGame = function() {
+                    var events = document.createElement("section");
+                    events.innerHTML = "<h1>To get here you've passed through:</h1>\n<ol><li>" + this.heroQuest.event1 + "</li><li>" + this.heroQuest.event2 + "</li><li>" + this.overlordQuest.event1 + "</li><li>" + this.overlordQuest.event2 + "</li></ol>";
+                    document.body.appendChild(events);
+                    var heroQuest = document.createElement("section");
+                    heroQuest.innerHTML = "<h1>Heroes: " + this.heroQuest.title + "</h1><p>" + this.heroQuest.text + "</p>";
+                    document.body.appendChild(heroQuest);
+                    var overlordQuest = document.createElement("section");
+                    overlordQuest.innerHTML = "<h1>Overlord: " + this.overlordQuest.title + "</h1><p>Place the tile <strong>" + this.overlordQuest.room + "</strong> as lieutenant room.</p><p>" + this.overlordQuest.text + "</p>";
+                    document.body.appendChild(overlordQuest);
+
+                    var rooms = document.createElement("section");
+                    rooms.innerHTML = "<h1>Rooms</h1> <p>[<strong>" + this.room1.room + "</strong>] &rarr; <strong>" + this.passage1.passage + "</strong> &rarr; [<strong>" + this.room2.room + "</strong>] &rarr; <strong>" + this.passage2.passage + "</strong> &rarr; [<strong>" + this.room3.room + "</strong>] &rarr; <strong>" + this.passage3.passage + "</strong> &rarr; [<strong>" + this.overlordQuest.room + "</strong>].</p>";
+                    document.body.appendChild(rooms);
+
+                    var monsters = document.createElement("section");
+                    monsters.innerHTML = "<h1>Monsters</h1> <p>Group A: <strong>" + this.groupA.monster + "</strong> Group B: <strong>" + this.groupB.monster + "</strong> Group C: <strong>" + this.groupC.monster + "</strong> Lieutenent: <strong>" + this.overlordQuest.lieutenent + "</strong></p>";
+                    document.body.appendChild(monsters);
+
+                    this.cCard = document.getElementById("currentCard");
+                    this.cNext = document.getElementById("next");
+                    this.cNext.addEventListener("click", function(that) {
+                        return function() {
+
+                            that.currentCard++;
+                            if (that.currentCard < that.overlordCards.length - 1
+                                    ) {
+                                that.cNext.innerHTML = "Draw an Overlord Card";
+                            } else if (that.currentCard === that.overlordCards.length - 1) {
+                                that.cNext.innerHTML = "Shuffle deck and Draw an Overlord Card";
+                            } else {
+                                that.shuffleAllDecks();
+                                that.currentCard = 0;
+                            }
+
+                            console.log("next" + that.currentCard);
+                            that.cCard.innerHTML = that.drawCard();
+
+                        };
+                    }(this));
+                    document.getElementById("prev").addEventListener("click", function(that) {
+                        return function() {
+                            console.log("prev" + that.currentCard);
+                            that.currentCard -= 1;
+                            if (that.currentCard <= 0) {
+                                that.currentCard = 0;
+                            }
+                            that.cCard.innerHTML = that.drawCard();
+
+                        };
+                    }(this));
+
+                };
+                this.drawCard = function(that) {
+                    return function() {
+                        return   "<h1>Current Card (" + (that.currentCard + 1) + "/" + that.overlordCards.length + "): " + that.overlordCards[that.currentCard].title + "</h1> <p>" + that.overlordCards[that.currentCard].text + "</p> <p>Activate all monsters in Group <strong>" + that.overlordCards[that.currentCard].group + "</strong>.</p> <p>Activate the Lieutenant <strong>" + that.overlordQuest.lieutenant + "</strong>.</p>";
+                    };
+                }(this);
+            };
+        </script>
+    </head>
+    <body>
+        <h1>Descent Dungeon Crawl</h1>
+        <div><button id="prev">Previous Overlord Card</button><button id="next">Draw a Overlord Card</button></div>
+        <div id="currentCard"></div>
+        <script>
+            var game = new DescentDC();
+            game.setupGame();
+            game.drawGame();
+        </script>
+    </body>
+</html>
